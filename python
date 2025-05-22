@@ -1,0 +1,145 @@
+# Task 2: Data Cleaning and Exploratory Data Analysis
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+
+# Load the Titanic dataset
+train_df = pd.read_csv("train.csv")
+
+# ------------------ DATA CLEANING ------------------
+
+# Check and fill missing values
+train_df['Age'].fillna(train_df['Age'].median(), inplace=True)
+train_df['Embarked'].fillna(train_df['Embarked'].mode()[0], inplace=True)
+
+# Drop columns with too many missing or unhelpful data
+train_df.drop(columns=['Cabin', 'Ticket'], inplace=True)
+
+# Save cleaned data (optional)
+train_df.to_csv("cleaned_train.csv", index=False)
+
+# ------------------ EXPLORATORY DATA ANALYSIS ------------------
+
+# Set a clean plot style
+sns.set(style="whitegrid")
+
+# Create a PDF report
+with PdfPages("task2_EDA_report.pdf") as pdf:
+    # Title Page
+    plt.figure(figsize=(8.5, 11))
+    plt.axis('off')
+    plt.text(0.5, 0.7, "Task 2 Report: Titanic Data Cleaning and EDA", fontsize=18, ha='center')
+    plt.text(0.5, 0.6, "Includes graphs for survival trends, age distribution, and correlations", fontsize=12, ha='center')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 1: Survival Count
+    plt.figure(figsize=(6, 4))
+    sns.countplot(x='Survived', data=train_df)
+    plt.title('Survival Count')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 2: Survival by Sex
+    plt.figure(figsize=(6, 4))
+    sns.countplot(x='Survived', hue='Sex', data=train_df)
+    plt.title('Survival by Sex')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 3: Survival by Class
+    plt.figure(figsize=(6, 4))
+    sns.countplot(x='Survived', hue='Pclass', data=train_df)
+    plt.title('Survival by Passenger Class')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 4: Age Distribution
+    plt.figure(figsize=(6, 4))
+    sns.histplot(data=train_df, x='Age', hue='Survived', multiple='stack', bins=20)
+    plt.title('Age Distribution by Survival')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 5: Correlation Heatmap
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(train_df.corr(numeric_only=True), annot=True, cmap='coolwarm', fmt='.2f')
+    plt.title('Correlation Heatmap')
+    pdf.savefig()
+    plt.close()
+
+print("✅ Task completed. PDF report saved as 'task2_EDA_report.pdf'.")
+# Task 2: Data Cleaning and Exploratory Data Analysis
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+
+# Load the Titanic dataset
+train_df = pd.read_csv("train.csv")
+
+# ------------------ DATA CLEANING ------------------
+
+# Check and fill missing values
+train_df['Age'].fillna(train_df['Age'].median(), inplace=True)
+train_df['Embarked'].fillna(train_df['Embarked'].mode()[0], inplace=True)
+
+# Drop columns with too many missing or unhelpful data
+train_df.drop(columns=['Cabin', 'Ticket'], inplace=True)
+
+# Save cleaned data (optional)
+train_df.to_csv("cleaned_train.csv", index=False)
+
+# ------------------ EXPLORATORY DATA ANALYSIS ------------------
+
+# Set a clean plot style
+sns.set(style="whitegrid")
+
+# Create a PDF report
+with PdfPages("task2_EDA_report.pdf") as pdf:
+    # Title Page
+    plt.figure(figsize=(8.5, 11))
+    plt.axis('off')
+    plt.text(0.5, 0.7, "Task 2 Report: Titanic Data Cleaning and EDA", fontsize=18, ha='center')
+    plt.text(0.5, 0.6, "Includes graphs for survival trends, age distribution, and correlations", fontsize=12, ha='center')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 1: Survival Count
+    plt.figure(figsize=(6, 4))
+    sns.countplot(x='Survived', data=train_df)
+    plt.title('Survival Count')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 2: Survival by Sex
+    plt.figure(figsize=(6, 4))
+    sns.countplot(x='Survived', hue='Sex', data=train_df)
+    plt.title('Survival by Sex')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 3: Survival by Class
+    plt.figure(figsize=(6, 4))
+    sns.countplot(x='Survived', hue='Pclass', data=train_df)
+    plt.title('Survival by Passenger Class')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 4: Age Distribution
+    plt.figure(figsize=(6, 4))
+    sns.histplot(data=train_df, x='Age', hue='Survived', multiple='stack', bins=20)
+    plt.title('Age Distribution by Survival')
+    pdf.savefig()
+    plt.close()
+
+    # Plot 5: Correlation Heatmap
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(train_df.corr(numeric_only=True), annot=True, cmap='coolwarm', fmt='.2f')
+    plt.title('Correlation Heatmap')
+    pdf.savefig()
+    plt.close()
+
+print("✅ Task completed. PDF report saved as 'task2_EDA_report.pdf'.")
